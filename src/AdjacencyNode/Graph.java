@@ -38,15 +38,16 @@ public class Graph {
     public void dfs(Node node, Vector<Integer> visited, Graphics g){
         visited.add(node.id);
         for (Map.Entry<Integer, Edge> set: node.neighbors.entrySet()){
-           // if (!visited.contains(set.getValue().neighbor.id)){
+
                 g.drawLine(node.x, node.y, set.getValue().neighbor.x,set.getValue().neighbor.y);
                 String s=Integer.toString(set.getValue().price);
                 g.setFont(new Font("Arial",Font.BOLD,14));
                 g.drawString(s,(node.x+set.getValue().neighbor.getX())/2,(node.y+set.getValue().neighbor.getY())/2);
                 g.setFont(new Font("Arial", Font.PLAIN,10));
-            if (!visited.contains(set.getValue().neighbor.id))
-                dfs(set.getValue().neighbor, visited, g);
-         //   }
+                //Check if visited before dfs
+                if (!visited.contains(set.getValue().neighbor.id))
+                    dfs(set.getValue().neighbor, visited, g);
+
         }
         //node.drawNode(g);
     }
