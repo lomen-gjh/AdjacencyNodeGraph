@@ -12,7 +12,7 @@ import java.util.Vector;
 public class Window  extends JFrame implements ActionListener, MouseListener {
     Graph graph;
     JPanel north, center;
-    JButton draw;
+    JButton findSP;
 
     int selected=-1;
     public static void main(String[] args){
@@ -32,9 +32,9 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
         add(north, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
         center.addMouseListener(this);
-        draw=new JButton("Draw");
-        draw.addActionListener(this);
-        north.add(draw);
+        findSP=new JButton("Shortest path");
+        findSP.addActionListener(this);
+        north.add(findSP);
 
 
 
