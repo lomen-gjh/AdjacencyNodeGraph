@@ -7,3 +7,4 @@ For now we have:
 4. Adding node by clicking
 5. Connectiong nodes
 6. Deleting node -buggy... To be fixed
+7. Priority Queue for Adjecency Nodes
