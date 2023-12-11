@@ -20,8 +20,8 @@ public class Node {
     int id;
     static int currentID=1;
     public Node(int x, int y, Graphics g){
-        pqindex=-1;
-        price=10000;
+        pqindex=-1;   //not in heap
+        price=10000; //inital price
         this.x=x;
         this.y=y;
         id=currentID;
@@ -71,6 +71,12 @@ public class Node {
     }
     public int getPqindex(){
         return pqindex;
+    }
+    public void setPrice(int newPrice){
+        price=newPrice;
+    }
+    public int getPrice(){
+        return price;
     }
 }
 
