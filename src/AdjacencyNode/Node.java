@@ -14,11 +14,14 @@ class Edge{
 }
 
 public class Node {
+    int pqindex, price;
     int x, y;
     HashMap<Integer, Edge> neighbors;
     int id;
     static int currentID=1;
     public Node(int x, int y, Graphics g){
+        pqindex=-1;
+        price=10000;
         this.x=x;
         this.y=y;
         id=currentID;
@@ -61,6 +64,13 @@ public class Node {
     }
     public void setY(int y){
         this.y=y;
+    }
+
+    public void setPqindex(int pqindex) {
+        this.pqindex = pqindex;
+    }
+    public int getPqindex(){
+        return pqindex;
     }
 }
 

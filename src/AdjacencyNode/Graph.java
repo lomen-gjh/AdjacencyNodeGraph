@@ -1,7 +1,9 @@
 package AdjacencyNode;
 
 import java.awt.*;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Vector;
 
 public class Graph {
@@ -56,4 +58,15 @@ public class Graph {
         n1.addNeighbor(n2,price);
     }
 
+
+    int shortestPath(){
+
+
+        return -1;
+
+    }
+
+    void dijkstra(){
+
+    }
 }

@@ -13,6 +13,8 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
     Graph graph;
     JPanel north, center;
     JButton findSP;
+    JLabel lfrom, lto;
+    JTextField tfrom, tto;
 
     int selected=-1;
     public static void main(String[] args){
@@ -28,13 +30,22 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
         setLayout(new BorderLayout());
         graph=new Graph();
         north=new JPanel();
+        findSP=new JButton("Shortest path");
+        findSP.addActionListener(this);
+        north.add(findSP);
+        lfrom=new JLabel("Start index");
+        tfrom=new JTextField(5);
+        lto=new JLabel("End index");
+        tto=new JTextField(5);
+        north.add(lfrom);
+        north.add(tfrom);
+        north.add(lto);
+        north.add(tto);
         center=new JPanel();
         add(north, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
         center.addMouseListener(this);
-        findSP=new JButton("Shortest path");
-        findSP.addActionListener(this);
-        north.add(findSP);
+
 
 
 
@@ -52,6 +63,7 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
         if (e.getButton()==MouseEvent.BUTTON1){
             graph.addNode(new Node(e.getX(),e.getY(), center.getGraphics()));
             graph.drawGraph(center.getGraphics());
+
         }
         else if(e.getButton()==MouseEvent.BUTTON2) {
             int todelete=-1;
