@@ -1,6 +1,7 @@
 package AdjacencyNode;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
@@ -17,8 +18,15 @@ public class Graph {
     public void removeNode(Node node){
         //First, remove all neighbors
         //To do this, iterate all neighbors and remove "node" from neighbor hashmap
+        //NOTE: you cant delete from hashmap during itteration
+        ArrayList<Node> neighborsToRemove=new ArrayList<>();
         for (Map.Entry<Integer, Edge> set: node.neighbors.entrySet()){
-            set.getValue().neighbor.removeNeighbor(node);
+            Node neighbor= set.getValue().neighbor;
+            neighborsToRemove.add(neighbor);
+        }
+        //Remove the node as neighbor from other nodes
+        for (Node neighborToRemove:neighborsToRemove){
+            neighborToRemove.removeNeighbor(node);
         }
         nodes.remove(node);
     }

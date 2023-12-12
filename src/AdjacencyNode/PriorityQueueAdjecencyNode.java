@@ -103,6 +103,7 @@ public class PriorityQueueAdjecencyNode {
     }
 
     public static void main(String[] args) {
+        //Testing
         Vector<Node> nodes=new Vector<>();
         nodes.add(new Node(3,4,null));
         nodes.add(new Node(3,3,null));
