@@ -15,11 +15,13 @@ class Edge{
 
 public class Node {
     int pqindex, price;
+    Node previous; //For path tracing in Dijkstra
     int x, y;
     HashMap<Integer, Edge> neighbors;
     int id;
     static int currentID=1;
     public Node(int x, int y, Graphics g){
+        previous=null;
         pqindex=-1;   //not in heap
         price=10000; //inital price
         this.x=x;

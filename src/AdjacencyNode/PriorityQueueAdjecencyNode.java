@@ -68,16 +68,17 @@ public class PriorityQueueAdjecencyNode {
     public Node poll(){
         Node deleted=data[0];
         data[0]=data[size-1];
+        data[0].pqindex=0;
         data[size-1]=null;
         size--;
-
-
+        heapifyDown();
         return deleted;
     }
 
     void heapifyDown(){
         int index=0;
         while(index<size){
+            
             int childdiff=data[leftChild(index)].price-data[rightChild(index)].price;
             if (childdiff>0){
                 if (data[index].price>data[leftChild(index)].price){

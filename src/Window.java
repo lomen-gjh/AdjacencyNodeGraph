@@ -13,8 +13,8 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
     Graph graph;
     JPanel north, center;
     JButton findSP;
-    JLabel lfrom, lto;
-    JTextField tfrom, tto;
+    JLabel lfrom, lto, ledgeprice;
+    JTextField tfrom, tto, edgeprice;
 
     int selected=-1;
     public static void main(String[] args){
@@ -37,16 +37,20 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
         tfrom=new JTextField(5);
         lto=new JLabel("End index");
         tto=new JTextField(5);
+        ledgeprice=new JLabel("Edge price:");
+        edgeprice=new JTextField("10",5);
+
+
         north.add(lfrom);
         north.add(tfrom);
         north.add(lto);
         north.add(tto);
+        north.add(ledgeprice);
+        north.add(edgeprice);
         center=new JPanel();
         add(north, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
         center.addMouseListener(this);
-
-
 
 
         setVisible(true);
@@ -55,7 +59,13 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource()==findSP){
+            graph.shortestPath(
+                    graph.nodes.elementAt(Integer.parseInt(tfrom.getText())-1),
+                    graph.nodes.elementAt(Integer.parseInt(tto.getText())-1),
+                    (Graphics2D) center.getGraphics()
+            );
+        }
     }
 
     @Override
@@ -88,6 +98,12 @@ public class Window  extends JFrame implements ActionListener, MouseListener {
                     }
                     else{
                         System.out.println("Connecting "+(i+1)+" and "+(selected+1)+"...");
+                        try{
+                            graph.connect(graph.nodes.elementAt(selected),graph.nodes.elementAt(i),Integer.parseInt(edgeprice.getText()));
+                        }
+                        catch (NumberFormatException err){
+                            graph.connect(graph.nodes.elementAt(selected),graph.nodes.elementAt(i),(int)(Math.random()*10)+1);
+                        }
                         graph.connect(graph.nodes.elementAt(selected),graph.nodes.elementAt(i),(int)(Math.random()*10)+1);
                         System.out.println("Disselecting...");
                         selected=-1;

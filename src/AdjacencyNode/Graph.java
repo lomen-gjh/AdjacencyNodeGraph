@@ -2,6 +2,7 @@ package AdjacencyNode;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -58,6 +59,52 @@ public class Graph {
 
         }
         //node.drawNode(g);
+    }
+
+    PriorityQueueAdjecencyNode reset(){
+        PriorityQueueAdjecencyNode pq=new PriorityQueueAdjecencyNode();
+        for (Node node:nodes){
+            node.price=10000;
+            node.previous=null; //in case Dijkstra was already running previously
+            pq.insert(node);
+        }
+        return pq;
+    }
+
+    public void shortestPath(Node start, Node end, Graphics2D g){
+        PriorityQueueAdjecencyNode pq=reset();
+        start.price=0;
+        pq.heapifyUp(start.pqindex);
+        dijkstra(start, pq);
+        drawPath(end,g);
+
+    }
+
+    void drawPath(Node current, Graphics2D g){
+        g.clearRect(0,0,600,600);
+        drawGraph(g);
+        g.setColor(Color.BLUE);
+        g.setStroke(new BasicStroke(3));
+        while (current.previous!=null){
+            g.drawLine(current.x, current.y, current.previous.x, current.previous.y);
+            current=current.previous;
+        }
+    }
+
+    void dijkstra(Node current, PriorityQueueAdjecencyNode pq){
+        for (Map.Entry<Integer, Edge> set: current.neighbors.entrySet()){
+            //set.getValue().price -> price of current edge
+            //set.getValue().neighbor.price -> current neighbor price
+            if (set.getValue().neighbor.price>current.price+set.getValue().price){
+                set.getValue().neighbor.price=current.price+set.getValue().price;
+                set.getValue().neighbor.previous=current; //set current as previous
+                pq.heapifyUp(set.getValue().neighbor.pqindex);
+            }
+        }
+        pq.poll();
+        System.out.println(pq.size);
+        if (pq.size!=0)
+            dijkstra(pq.data[0],pq);
     }
 
     public void connect(Node n1, Node n2, int price){
