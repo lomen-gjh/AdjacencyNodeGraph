@@ -78,22 +78,19 @@ public class PriorityQueueAdjecencyNode {
     void heapifyDown(){
         int index=0;
         while(index<size){
-            
-            int childdiff=data[leftChild(index)].price-data[rightChild(index)].price;
-            if (childdiff>0){
-                if (data[index].price>data[leftChild(index)].price){
-                    swap(index, leftChild(index));
-                    index=leftChild(index);
+            if (leftChild(index)!=-1)  // finction leftCHild returns -1 if it does not exist
+            {
+                int lesser=leftChild(index);
+                if (rightChild(index)!=-1 && data[rightChild(index)].price!=data[lesser].price){
+                    lesser=rightChild(index);  //lesser is index of a lesser node between left and right child
+                }
+                if (data[index].price>data[lesser].price){
+                    swap(index,lesser);
+                    index=lesser;
                 }
                 else break;
             }
-            else{
-                if (data[index].price>data[rightChild(index)].price){
-                    swap(index, rightChild(index));
-                    index=rightChild(index);
-                }
-                else break;
-            }
+            else break;
         }
     }
 
