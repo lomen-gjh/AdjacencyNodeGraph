@@ -68,6 +68,7 @@ public class PriorityQueueAdjecencyNode {
     public Node poll(){
         Node deleted=data[0];
         data[0]=data[size-1];
+        deleted.pqindex=-1;
         data[0].pqindex=0;
         data[size-1]=null;
         size--;
@@ -81,7 +82,7 @@ public class PriorityQueueAdjecencyNode {
             if (leftChild(index)!=-1)  // finction leftCHild returns -1 if it does not exist
             {
                 int lesser=leftChild(index);
-                if (rightChild(index)!=-1 && data[rightChild(index)].price!=data[lesser].price){
+                if (rightChild(index)!=-1 && data[rightChild(index)].price<data[lesser].price){
                     lesser=rightChild(index);  //lesser is index of a lesser node between left and right child
                 }
                 if (data[index].price>data[lesser].price){
@@ -103,24 +104,19 @@ public class PriorityQueueAdjecencyNode {
     public static void main(String[] args) {
         //Testing
         Vector<Node> nodes=new Vector<>();
-        nodes.add(new Node(3,4,null));
-        nodes.add(new Node(3,3,null));
-        nodes.add(new Node(5,5,null));
-        nodes.add(new Node(5,5,null));
-        nodes.add(new Node(5,5,null));
         PriorityQueueAdjecencyNode pq=new PriorityQueueAdjecencyNode();
-        pq.insert(nodes.elementAt(0));
-        pq.insert(nodes.elementAt(1));
-        pq.insert(nodes.elementAt(2));
-        pq.insert(nodes.elementAt(3));
-        pq.insert(nodes.elementAt(4));
+        for (int i=0; i<10; i++){
+            nodes.add(new Node(5,5,null));
+            pq.insert(nodes.elementAt(i));
+        }
+
         pq.print();
         nodes.elementAt(4).price=5;
         pq.heapifyUp(nodes.elementAt(4).pqindex);
         System.out.println("---------");
         pq.print();
-        nodes.elementAt(1).price=6;
-        pq.heapifyUp(nodes.elementAt(1).pqindex);
+        nodes.elementAt(9).price=6;
+        pq.heapifyUp(nodes.elementAt(9).pqindex);
         System.out.println("-------");
         pq.print();
     }

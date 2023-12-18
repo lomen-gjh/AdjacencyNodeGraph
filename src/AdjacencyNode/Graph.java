@@ -95,7 +95,7 @@ public class Graph {
         for (Map.Entry<Integer, Edge> set: current.neighbors.entrySet()){
             //set.getValue().price -> price of current edge
             //set.getValue().neighbor.price -> current neighbor price
-            if (set.getValue().neighbor.price>current.price+set.getValue().price){
+            if (set.getValue().neighbor.pqindex!=-1 && set.getValue().neighbor.price>current.price+set.getValue().price){
                 set.getValue().neighbor.price=current.price+set.getValue().price;
                 set.getValue().neighbor.previous=current; //set current as previous
                 pq.heapifyUp(set.getValue().neighbor.pqindex);
